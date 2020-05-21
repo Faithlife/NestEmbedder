@@ -1,12 +1,12 @@
-# ProjectName
+# Faithlife.NestEmbedder
 
-**ProjectName** description
+**Faithlife.NestEmbedder** description
 
 ## Installation
 
-ProjectName should be installed [via NuGet](https://www.nuget.org/packages/ProjectName).
+Faithlife.NestEmbedder should be installed [via NuGet](https://www.nuget.org/packages/Faithlife.NestEmbedder).
 
 ## Documentation
 
-* [Reference Documentation](ProjectName.md)
+* [Reference Documentation](Faithlife.NestEmbedder.md)
 
