@@ -1,4 +1,4 @@
-# Contributing to RepoName
+# Contributing to FaithlifeNestEmbedder
 
 ## Prerequisites
 
@@ -13,6 +13,6 @@
 
 ## How to Build
 
-* `git clone https://github.com/Faithlife/RepoName.git`
-* `cd RepoName`
+* `git clone https://github.com/Faithlife/FaithlifeNestEmbedder.git`
+* `cd FaithlifeNestEmbedder`
 * `dotnet test`
