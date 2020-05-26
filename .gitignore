@@ -3,6 +3,7 @@ bin/
 cake/
 obj/
 release/
+docbuild/
 
 # ignore user-specific options/cache files
 .vs/
