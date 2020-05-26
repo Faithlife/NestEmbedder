@@ -1,0 +1,17 @@
+<Project>
+  <PropertyGroup>
+    <NestEmbedderExe>dotnet "$(MSBuildThisFileDirectory)/netcoreapp3.1/Faithlife.NestEmbedder.dll"</NestEmbedderExe>
+  </PropertyGroup>
+  <Target Name="ForcePrivateAssetsForElasticsearch" BeforeTargets="Build">
+    <ItemGroup>
+      <PackageReference Condition="'%(PackageReference.Identity)'=='NEST' Or '%(PackageReference.Identity)'=='Elasticsearch.Net'">
+        <PrivateAssets>all</PrivateAssets>
+      </PackageReference>
+    </ItemGroup>
+  </Target>
+  <Target Name="EmbedElasticsearchReferences" AfterTargets="Build">
+    <Exec Command="$(NestEmbedderExe) &quot;$(OutDir)$(AssemblyName)$(TargetExt)&quot; &quot;$(OutDir)Nest.dll&quot; &quot;$(OutDir)Elasticsearch.Net.dll&quot;" />
+    <Delete Files="$(OutDir)Nest.dll" />
+    <Delete Files="$(OutDir)Elasticsearch.Net.dll" />
+  </Target>
+</Project>

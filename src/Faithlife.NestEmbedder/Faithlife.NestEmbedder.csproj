@@ -1,13 +1,29 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <VersionPrefix>0.1.0</VersionPrefix>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Description></Description>
-    <PackageTags></PackageTags>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+    <Title>Faithlife Nest and Elasticsearch embedder</Title>
+    <Description>Automatically embed Nest and Elasticsearch.Net assemblies.</Description>
+
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <IncludeSymbols>false</IncludeSymbols>
+    <NoWarn>NU5128</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="InstalledBuildProps.props" Pack="true" PackagePath="/build/Faithlife.NestEmbedder.props" />
+    <None Include="InstalledTransitiveBuildProps.props" Pack="true" PackagePath="/buildTransitive/Faithlife.NestEmbedder.props" />
+
+    <None Include="EmbedNestAssemblies.props" Pack="true" PackagePath="/tools/" />
+    <None Include="RemoveNestBindingRedirects.props" Pack="true" PackagePath="/tools/" />
+    <None Include="RemoveNestBindingRedirects.xsl" Pack="true" PackagePath="/tools/" />
+
+    <None Include="..\Faithlife.AssemblyEmbedder\bin\$(Configuration)\netcoreapp3.1\**" Pack="true" PackagePath="/tools/netcoreapp3.1/" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Faithlife.NestEmbedder.EmbeddedAssemblyLoader\Faithlife.NestEmbedder.EmbeddedAssemblyLoader.csproj" />
   </ItemGroup>
 
 </Project>

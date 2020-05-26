@@ -1,28 +1,53 @@
 <Project>
-
+  <!-- Project-specific settings -->
   <PropertyGroup>
+    <Authors>Faithlife, LLC</Authors>
+    <Company>Faithlife, LLC</Company>
     <LangVersion>latest</LangVersion>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <NoWarn>$(NoWarn);1591</NoWarn>
-    <DebugType>portable</DebugType>
-    <DebugSymbols>True</DebugSymbols>
-    <RepositoryName>FaithlifeNestEmbedder</RepositoryName>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/Faithlife/$(RepositoryName)</PackageProjectUrl>
-    <PackageReleaseNotes>https://github.com/Faithlife/$(RepositoryName)/blob/master/VersionHistory.md#released</PackageReleaseNotes>
-    <RepositoryUrl>https://github.com/Faithlife/$(RepositoryName).git</RepositoryUrl>
-    <Authors>Faithlife Corporation</Authors>
-    <Copyright>Copyright Faithlife Corporation</Copyright>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
 
+  <!-- Project quality settings -->
+  <PropertyGroup>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(CI)'=='true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Faithlife.Analyzers" Version="1.0.5" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19351-01" PrivateAssets="All"/>
-    <DotNetCliToolReference Include="dotnet-sourcelink" Version="2.8.3" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
+  <!-- Package settings -->
+  <PropertyGroup>
+    <PackageProjectUrl>https://github.com/$(GITHUB_REPOSITORY)</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <!-- Source debugging -->
+  <PropertyGroup>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+  </ItemGroup>
+
+  <!-- Versioning -->
+  <PropertyGroup Condition="'$(DevVersion)'==''">
+    <DevVersion>1.0.0</DevVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(GITHUB_REF)'=='' or !$(GITHUB_REF.StartsWith('refs/tags/v'))">
+    <Version>$(DevVersion)-dev</Version>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(GITHUB_REF)'!='' and $(GITHUB_REF.StartsWith('refs/tags/v'))">
+    <Version>$(GITHUB_REF.Replace('refs/tags/v', ''))</Version>
+  </PropertyGroup>
 </Project>

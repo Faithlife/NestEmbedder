@@ -1,0 +1,13 @@
+<Project>
+  <Target Name="RemoveNestBindingRedirects"
+          AfterTargets="GenerateBindingRedirects"
+          Condition="Exists('$(_GenerateBindingRedirectsIntermediateAppConfig)')">
+    <XslTransformation
+      XmlInputPaths="$(_GenerateBindingRedirectsIntermediateAppConfig)"
+      OutputPaths="$(_GenerateBindingRedirectsIntermediateAppConfig).transformed"
+      XslInputPath="$(MSBuildThisFileDirectory)RemoveNestBindingRedirects.xsl" />
+    <Copy
+      SourceFiles="$(_GenerateBindingRedirectsIntermediateAppConfig).transformed"
+      DestinationFiles="$(_GenerateBindingRedirectsIntermediateAppConfig)" />
+  </Target>
+</Project>
