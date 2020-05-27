@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <NestEmbedderExe>dotnet "$(MSBuildThisFileDirectory)/netcoreapp3.1/Faithlife.NestEmbedder.dll"</NestEmbedderExe>
+    <NestEmbedderExe>dotnet "$(MSBuildThisFileDirectory)netcoreapp3.1/Faithlife.AssemblyEmbedder.dll"</NestEmbedderExe>
   </PropertyGroup>
   <Target Name="ForcePrivateAssetsForElasticsearch" BeforeTargets="Build">
     <ItemGroup>
