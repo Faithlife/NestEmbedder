@@ -37,7 +37,8 @@ jobs:
 
     - name: Build
       run: |
-        dotnet pack --configuration Release
+        dotnet build --configuration Release
+        dotnet pack --configuration Release --no-build
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
