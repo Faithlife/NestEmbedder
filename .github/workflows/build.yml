@@ -51,7 +51,8 @@ jobs:
     - name: Build docs
       run: |
         dotnet tool install xmldocmd -g
-        Copy-Item pages/* docbuild/ -Recurse
+        mkdir docbuild
+        Copy-Item pages/* docbuild -Recurse
         xmldocmd .\src\Faithlife.NestEmbedder.EmbeddedAssemblyLoader\bin\Release\netstandard2.0\Faithlife.NestEmbedder.EmbeddedAssemblyLoader.dll docbuild
         npx gh-pages --dist docbuild
     
