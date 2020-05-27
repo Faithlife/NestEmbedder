@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Title>Faithlife Nest and Elasticsearch embedder</Title>
+    <Description>Remove Nest and Elasticsearch binding redirects.</Description>
+
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <IncludeSymbols>false</IncludeSymbols>
+    <NoWarn>NU5128</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="InstalledTransitiveBuildProps.props" Pack="true" PackagePath="/build/Faithlife.NestEmbedder.RemoveNestBindingRedirects.props" />
+    <None Include="InstalledTransitiveBuildProps.props" Pack="true" PackagePath="/buildTransitive/Faithlife.NestEmbedder.RemoveNestBindingRedirects.props" />
+
+    <None Include="RemoveNestBindingRedirects.props" Pack="true" PackagePath="/tools/" />
+    <None Include="RemoveNestBindingRedirects.xsl" Pack="true" PackagePath="/tools/" />
+  </ItemGroup>
+
+</Project>
