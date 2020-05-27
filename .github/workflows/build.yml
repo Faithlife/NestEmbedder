@@ -52,7 +52,9 @@ jobs:
       if: startsWith(github.event.ref, 'refs/tags/v')
       run: |
         dotnet tool install xmldocmd -g
+        Copy-Item pages/* docbuild -Recurse
         xmldocmd .\src\Faithlife.NestEmbedder.EmbeddedAssemblyLoader\bin\Release\netstandard2.0\Faithlife.NestEmbedder.EmbeddedAssemblyLoader.dll docbuild
+        npx gh-pages --dist docbuild
     
     - name: Publish
       if: startsWith(github.event.ref, 'refs/tags/v')
