@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -18,20 +19,26 @@ namespace Faithlife.NestEmbedder.EmbeddedAssemblyLoader
 		{
 			_ = prefix ?? throw new ArgumentNullException(nameof(prefix));
 
-			var containingAssembly = Assembly.GetCallingAssembly();
+			var callingAssembly = Assembly.GetCallingAssembly();
 
-			// Load all embedded assemblies immediately.
-			var existingAssemblies = AppDomain.CurrentDomain.GetAssemblies();
-			var loadedAssemblies = new Dictionary<string, Assembly>(StringComparer.InvariantCultureIgnoreCase);
-			foreach (var resourceName in GetEmbeddedAssemblyResourceNames(containingAssembly, prefix))
+			var lazy = s_dictionary.GetOrAdd(callingAssembly, containingAssembly => new Lazy<object>(() =>
 			{
-				var (assembly, didLoadAssembly) = ReadFromLoadedAssembliesOrEmbeddedResource(containingAssembly, prefix, resourceName, existingAssemblies);
-				if (didLoadAssembly)
-					loadedAssemblies.Add(assembly.FullName, assembly);
-			}
+				// Load all embedded assemblies immediately.
+				var existingAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+				var loadedAssemblies = new Dictionary<string, Assembly>(StringComparer.InvariantCultureIgnoreCase);
+				foreach (var resourceName in GetEmbeddedAssemblyResourceNames(containingAssembly, prefix))
+				{
+					var (assembly, didLoadAssembly) = ReadFromLoadedAssembliesOrEmbeddedResource(containingAssembly, prefix, resourceName, existingAssemblies);
+					if (didLoadAssembly)
+						loadedAssemblies.Add(assembly.FullName, assembly);
+				}
 
-			// When requested, return the embedded assembly.
-			AppDomain.CurrentDomain.AssemblyResolve += (_, args) => loadedAssemblies.TryGetValue(args.Name, out var assembly) ? assembly : null;
+				// When requested, return the embedded assembly.
+				AppDomain.CurrentDomain.AssemblyResolve += (_, args) => loadedAssemblies.TryGetValue(args.Name, out var assembly) ? assembly : null;
+
+				return null!;
+			}));
+			_ = lazy.Value;
 		}
 
 		private static IEnumerable<string> GetEmbeddedAssemblyResourceNames(Assembly containingAssembly, string prefix) =>
@@ -61,7 +68,8 @@ namespace Faithlife.NestEmbedder.EmbeddedAssemblyLoader
 			}
 		}
 
-		private const string c_prefix = "faithlife.embedded-assembly.";
+		private static readonly ConcurrentDictionary<Assembly, Lazy<object>> s_dictionary = new ConcurrentDictionary<Assembly, Lazy<object>>();
 
+		private const string c_prefix = "faithlife.embedded-assembly.";
 	}
 }
