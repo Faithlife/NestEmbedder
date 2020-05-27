@@ -14,7 +14,7 @@ When using Elasticsearch, the `Nest` (and `Elasticsearch.Net`) packages must be 
 
 The first step is to isolate your old Nest calls into a separate dll. E.g., if your search logic is in the `SearchLogic` project, and you're upgrading from Elasticsearch v5 to v6, then you would first factor out all Nest usage into a new project `SearchLogic.Nest5`, and have `SearchLogic` depend on `SearchLogic.Nest5`. Remove all references to Nest from `SearchLogic` and ensure that `SearchLogic.Nest5` does not expose any Nest types in its API.
 
-Next, install the [`Faithlife.NestEmbedder`](https://www.nuget.org/packages/Faithlife.NestEmbedder) package into `SearchLogic.Nest5`. This will embed and isolate the v5 assemblies into that project. For each externally-visible type in `SearchLogic.Nest5`, add a static constructor that calls `Faithlife.NestEmbedder.EmbeddedAssemblyLoader.LoadAll()`. At this point, build and test to ensure the solution is working.
+Next, install the [`Faithlife.NestEmbedder`](https://www.nuget.org/packages/Faithlife.NestEmbedder) package into `SearchLogic.Nest5`. This will embed and isolate the v5 assemblies into that project. For each externally-visible type in `SearchLogic.Nest5`, add a static constructor that calls `Faithlife.NestEmbedder.EmbeddedAssemblyLoader.AssemblyLoader.LoadAll()`. At this point, build and test to ensure the solution is working.
 
 Now you're ready to add the v6 Nest assemblies. You can choose to add them to `SearchLogic` directly, or you can create a new `SearchLogic.Nest6` project. If you do the `SearchLogic.Nest6` project, you can also install `Faithlife.NestEmbedder` into that project to isolate the v6 assemblies as well.
 
