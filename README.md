@@ -5,7 +5,7 @@ Automatically embed Nest and Elasticsearch.Net assemblies, so you can upgrade yo
 Documentation: https://faithlife.github.io/FaithlifeNestEmbedder/
 
 Build | NuGet
---- | --- | ---
+--- | ---
 [![Build](https://github.com/Faithlife/NestEmbedder/workflows/Build/badge.svg)](https://github.com/Faithlife/NestEmbedder/actions?query=workflow%3ABuild) | [![NuGet](https://img.shields.io/nuget/v/Faithlife.NestEmbedder.svg)](https://www.nuget.org/packages/Faithlife.NestEmbedder)
 
 # How to use
