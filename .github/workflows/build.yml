@@ -49,6 +49,8 @@ jobs:
           **/*.snupkg
 
     - name: Build docs
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
         dotnet tool install xmldocmd -g
         mkdir docbuild
