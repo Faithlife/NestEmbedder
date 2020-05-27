@@ -18,6 +18,8 @@ Next, install the [`Faithlife.NestEmbedder`](https://www.nuget.org/packages/Fait
 
 Now you're ready to add the v6 Nest assemblies. You can choose to add them to `SearchLogic` directly, or you can create a new `SearchLogic.Nest6` project. If you do the `SearchLogic.Nest6` project, you can also install `Faithlife.NestEmbedder` into that project to isolate the v6 assemblies as well.
 
+The end result: you have a `SearchLogic` project that can search on either Elasticsearch v5 (via `SearchLogic.Nest5`) or Elasticsearch v6 (via a direct v6 Nest reference, or via `SearchLogic.Nest6`).
+
 # How it works
 
 There are three parts to isolating Nest assemblies:
