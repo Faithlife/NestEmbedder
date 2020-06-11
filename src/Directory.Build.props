@@ -1,7 +1,7 @@
 <Project>
   <!-- Project-specific settings -->
   <PropertyGroup>
-    <VersionPrefix>1.0.1-pre02</VersionPrefix>
+    <VersionPrefix>1.0.1</VersionPrefix>
     <Authors>Faithlife, LLC</Authors>
     <Company>Faithlife, LLC</Company>
     <LangVersion>latest</LangVersion>
