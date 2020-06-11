@@ -4,5 +4,5 @@
       <xsl:apply-templates select="node()|@*"/>
     </xsl:copy>
   </xsl:template>
-  <xsl:template match="asm:assemblyBinding[asm:dependentAssembly/asm:assemblyIdentity[@name='Elasticsearch.Net' or @name='Nest']]"/>
+  <xsl:template match="asm:assemblyBinding/asm:dependentAssembly[asm:assemblyIdentity[@name='Elasticsearch.Net' or @name='Nest']]/asm:bindingRedirect"/>
 </xsl:stylesheet>

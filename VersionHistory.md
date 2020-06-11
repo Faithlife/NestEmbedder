@@ -8,6 +8,10 @@ Prefix the description of the change with `[major]`, `[minor]` or `[patch]` in a
 
 ## Released
 
+### 1.0.1
+
+* [patch] `Faithlife.NestEmbedder.RemoveNestBindingRedirects` only removes `bindingRedirect` elements instead of the whole `assemblyBinding` node.
+
 ### 1.0.0
 
 * [major] Initial release.
